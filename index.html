@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnapStash - Smart Shopping List Chrome Extension</title>
+    <link rel="stylesheet" href="index.css">
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="diamond">◆</span> SnapStash <span class="diamond">◆</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#demo" class="nav-link">Demo</a></li>
+                <li><a href="#install" class="nav-link">Install</a></li>
+                <li><a href="https://github.com/yourusername/SnapStashExtension" target="_blank" class="nav-link btn-github">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="diamond">◆</span> SnapStash <span class="diamond">◆</span>
+            </h1>
+            <p class="hero-subtitle">Organize your shopping with style</p>
+            <p class="hero-description">Save shopping links instantly by category while browsing. Never lose track of what you want to buy again.</p>
+            <a href="#install" class="cta-button">Get Started</a>
+        </div>
+        <div class="hero-image">
+            <div class="extension-preview">
+                <div class="preview-header">SnapStash Extension</div>
+                <div class="preview-content">
+                    <div class="preview-logo">◆ SnapStash ◆</div>
+                    <p style="font-size: 12px; color: #666; margin-top: 10px;">Try the interactive demo below!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <h2>Why SnapStash?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📚</div>
+                <h3>6 Smart Categories</h3>
+                <p>Books • Clothes • Shoes • Electronics • Pets • Health</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>One-Click Save</h3>
+                <p>Save any URL instantly while browsing</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💾</div>
+                <h3>Cloud Sync</h3>
+                <p>Your list persists across browser sessions</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3>Beautiful UI</h3>
+                <p>Modern, futuristic design with smooth interactions</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="demo">
+        <h2>Try the Interactive Demo</h2>
+        <p class="demo-subtitle">This demo works just like the real Chrome extension!</p>
+        
+        <div class="demo-container">
+            <div class="demo-popup">
+                <div class="popup-header">
+                    <span class="logo-icon">◆</span>
+                    <h1 class="popup-title">SnapStash</h1>
+                </div>
+
+                <div class="current-url-demo">
+                    <strong>Current URL:</strong> example.com
+                </div>
+
+                <div class="input-section-demo">
+                    <div class="form-group-demo">
+                        <label for="category">Select Category:</label>
+                        <select id="category">
+                            <option value="">-- Choose a category --</option>
+                            <option value="Books">Books</option>
+                            <option value="Clothes">Clothes</option>
+                            <option value="Shoes">Shoes</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Pets">Pets</option>
+                            <option value="Health">Health</option>
+                        </select>
+                    </div>
+                    <button id="saveBtn" class="save-btn-demo">Save Item</button>
+                </div>
+
+                <div class="shopping-list-demo" id="shoppingList">
+                    <p class="empty-message-demo">No items saved yet</p>
+                </div>
+
+                <button id="clearBtn" class="clear-btn-demo">Clear All</button>
+            </div>
+        </div>
+
+        <p class="demo-note">💡 Try saving items with different categories to see how it works!</p>
+    </section>
+
+    <!-- Installation Section -->
+    <section id="install" class="installation">
+        <h2>How to Install</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Clone or Download</h3>
+                    <p>Download the extension from <a href="https://github.com/yourusername/SnapStashExtension" target="_blank">GitHub</a></p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Open Chrome Extensions</h3>
+                    <p>Go to <code>chrome://extensions</code> in your browser</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Enable Developer Mode</h3>
+                    <p>Toggle "Developer mode" in the top right corner</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Load Unpacked</h3>
+                    <p>Click "Load unpacked" and select the SnapStashExtension folder</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <h3>Start Using!</h3>
+                    <p>Click the SnapStash icon in your toolbar to start saving</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 SnapStash. Made with <span style="color: #65ecf1;">♥</span> for smart shoppers.</p>
+        <div class="footer-links">
+            <a href="https://github.com/yourusername/SnapStashExtension" target="_blank">GitHub</a>
+        </div>
+    </footer>
+
+    <script src="index.js"></script>
+</body>
+</html>

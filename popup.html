@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>SnapStash</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+        <link rel="stylesheet" href="popup.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <h1><span class="logo-icon">◆</span> SnapStash <span class="logo-icon">◆</span></h1>
+            </div>
+            
+            <div class="input-section">
+                <div class="form-group">
+                    <label for="category">Category:</label>
+                    <select id="category">
+                        <option value="">-- Select a category --</option>
+                        <option value="Books">Books</option>
+                        <option value="Clothes">Clothes</option>
+                        <option value="Shoes">Shoes</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Pets">Pets</option>
+                        <option value="Health">Health</option>
+                    </select>
+                </div>
+                
+                <button id="saveBtn" class="save-btn">Save Item</button>
+            </div>
+
+            <div class="current-url" id="currentUrl"></div>
+
+            <h2>Shopping List</h2>
+            <div class="shopping-list" id="shoppingList">
+                <p class="empty-message">No items saved yet</p>
+            </div>
+
+            <button id="clearBtn" class="clear-btn">Clear All</button>
+        </div>
+
+        <script src="popup.js"></script>
+    </body>
+</html>
