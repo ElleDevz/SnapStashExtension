@@ -79,6 +79,29 @@ h2 {
     color: #333;
 }
 
+.preview-section {
+    padding: 10px;
+    background: #f0f8ff;
+    border-left: 3px solid #65ecf1;
+    border-radius: 3px;
+    margin: 8px 0;
+}
+
+.preview-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #555;
+    margin: 0 0 4px 0;
+}
+
+.preview-text {
+    font-size: 13px;
+    color: #333;
+    word-break: break-word;
+    margin: 0;
+    font-weight: 500;
+}
+
 .form-group select {
     padding: 10px;
     border: 2px solid #ddd;
