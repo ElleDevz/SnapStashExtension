@@ -224,9 +224,12 @@ function undoAction() {
         // Get the last action
         const lastAction = history.pop();
         
+        // Restore the previous state (handle null/undefined cases)
+        const previousState = lastAction.previousState || [];
+        
         // Restore the previous state
         chrome.storage.local.set({ 
-            [STORAGE_KEY]: lastAction.previousState,
+            [STORAGE_KEY]: previousState,
             [HISTORY_KEY]: history
         }, () => {
             console.log('Action undone:', lastAction.action);

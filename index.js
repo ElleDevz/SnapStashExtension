@@ -187,10 +187,12 @@ function undoAction() {
     const lastAction = history.pop();
     
     // Restore the previous state
-    if (lastAction.previousState.length === 0) {
+    const previousState = lastAction.previousState || [];
+    
+    if (previousState.length === 0) {
         localStorage.removeItem(DEMO_STORAGE_KEY);
     } else {
-        localStorage.setItem(DEMO_STORAGE_KEY, JSON.stringify(lastAction.previousState));
+        localStorage.setItem(DEMO_STORAGE_KEY, JSON.stringify(previousState));
     }
     
     localStorage.setItem(DEMO_HISTORY_KEY, JSON.stringify(history));
