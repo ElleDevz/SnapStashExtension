@@ -2,11 +2,13 @@
 const categorySelect = document.getElementById('category');
 const saveBtn = document.getElementById('saveBtn');
 const clearBtn = document.getElementById('clearBtn');
+const undoBtn = document.getElementById('undoBtn');
 const shoppingList = document.getElementById('shoppingList');
 const currentUrlDiv = document.getElementById('currentUrl');
 
-// Storage key
+// Storage keys
 const STORAGE_KEY = 'snapstashItems';
+const HISTORY_KEY = 'snapstashHistory';
 
 // Initialize the extension when the popup opens
 document.addEventListener('DOMContentLoaded', () => {
@@ -16,9 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Load and display saved items
     loadAndDisplayItems();
     
+    // Update undo button state
+    updateUndoButtonState();
+    
     // Add event listeners
     saveBtn.addEventListener('click', saveItem);
     clearBtn.addEventListener('click', clearAllItems);
+    undoBtn.addEventListener('click', undoAction);
 });
 
 // Get the current tab's URL
@@ -45,8 +51,9 @@ function saveItem() {
             const url = tabs[0].url;
             
             // Get existing items from storage
-            chrome.storage.local.get([STORAGE_KEY], (result) => {
+            chrome.storage.local.get([STORAGE_KEY, HISTORY_KEY], (result) => {
                 let items = result[STORAGE_KEY] || [];
+                let history = result[HISTORY_KEY] || [];
                 
                 // Add new item
                 const newItem = {
@@ -59,13 +66,25 @@ function saveItem() {
                 
                 items.push(newItem);
                 
+                // Record action in history
+                history.push({
+                    action: 'add',
+                    item: newItem,
+                    previousState: result[STORAGE_KEY] || [],
+                    timestamp: Date.now()
+                });
+                
                 // Save to storage
-                chrome.storage.local.set({ [STORAGE_KEY]: items }, () => {
+                chrome.storage.local.set({ 
+                    [STORAGE_KEY]: items,
+                    [HISTORY_KEY]: history
+                }, () => {
                     console.log('Item saved:', newItem);
                     
                     // Reset form and reload display
                     categorySelect.value = '';
                     loadAndDisplayItems();
+                    updateUndoButtonState();
                     
                     // Show success message
                     showNotification('Item saved successfully!');
@@ -133,16 +152,32 @@ function createItemElement(item) {
 
 // Delete a specific item
 function deleteItem(itemId) {
-    chrome.storage.local.get([STORAGE_KEY], (result) => {
+    chrome.storage.local.get([STORAGE_KEY, HISTORY_KEY], (result) => {
         let items = result[STORAGE_KEY] || [];
+        let history = result[HISTORY_KEY] || [];
+        
+        // Find the item being deleted
+        const deletedItem = items.find(item => item.id === itemId);
         
         // Filter out the deleted item
         items = items.filter(item => item.id !== itemId);
         
+        // Record action in history
+        history.push({
+            action: 'delete',
+            item: deletedItem,
+            previousState: result[STORAGE_KEY] || [],
+            timestamp: Date.now()
+        });
+        
         // Save updated list
-        chrome.storage.local.set({ [STORAGE_KEY]: items }, () => {
+        chrome.storage.local.set({ 
+            [STORAGE_KEY]: items,
+            [HISTORY_KEY]: history
+        }, () => {
             console.log('Item deleted');
             loadAndDisplayItems();
+            updateUndoButtonState();
             showNotification('Item deleted');
         });
     });
@@ -151,12 +186,69 @@ function deleteItem(itemId) {
 // Clear all items
 function clearAllItems() {
     if (confirm('Are you sure you want to delete all items?')) {
-        chrome.storage.local.set({ [STORAGE_KEY]: [] }, () => {
-            console.log('All items cleared');
-            loadAndDisplayItems();
-            showNotification('All items cleared');
+        chrome.storage.local.get([STORAGE_KEY, HISTORY_KEY], (result) => {
+            let items = result[STORAGE_KEY] || [];
+            let history = result[HISTORY_KEY] || [];
+            
+            // Record action in history
+            history.push({
+                action: 'clearAll',
+                item: null,
+                previousState: items,
+                timestamp: Date.now()
+            });
+            
+            chrome.storage.local.set({ 
+                [STORAGE_KEY]: [],
+                [HISTORY_KEY]: history
+            }, () => {
+                console.log('All items cleared');
+                loadAndDisplayItems();
+                updateUndoButtonState();
+                showNotification('All items cleared');
+            });
         });
     }
+}
+
+// Undo the last action
+function undoAction() {
+    chrome.storage.local.get([HISTORY_KEY, STORAGE_KEY], (result) => {
+        let history = result[HISTORY_KEY] || [];
+        
+        if (history.length === 0) {
+            showNotification('Nothing to undo');
+            return;
+        }
+        
+        // Get the last action
+        const lastAction = history.pop();
+        
+        // Restore the previous state
+        chrome.storage.local.set({ 
+            [STORAGE_KEY]: lastAction.previousState,
+            [HISTORY_KEY]: history
+        }, () => {
+            console.log('Action undone:', lastAction.action);
+            loadAndDisplayItems();
+            updateUndoButtonState();
+            
+            const messages = {
+                'add': 'Item addition undone',
+                'delete': 'Item deletion undone',
+                'clearAll': 'Clear all undone'
+            };
+            showNotification(messages[lastAction.action] || 'Action undone');
+        });
+    });
+}
+
+// Update undo button state based on history
+function updateUndoButtonState() {
+    chrome.storage.local.get([HISTORY_KEY], (result) => {
+        const history = result[HISTORY_KEY] || [];
+        undoBtn.disabled = history.length === 0;
+    });
 }
 
 // Show a temporary notification

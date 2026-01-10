@@ -217,6 +217,35 @@ h2 {
     background: #ff5252;
 }
 
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.undo-btn {
+    flex: 1;
+    padding: 10px;
+    background: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.undo-btn:hover:not(:disabled) {
+    background: #45a049;
+}
+
+.undo-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
 /* Scrollbar styling */
 .shopping-list::-webkit-scrollbar {
     width: 6px;

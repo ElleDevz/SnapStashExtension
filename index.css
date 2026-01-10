@@ -299,6 +299,40 @@ body {
     background: #ff5252;
 }
 
+.button-group-demo {
+    display: flex;
+    gap: 10px;
+    margin: 16px;
+    margin-top: 0;
+}
+
+.undo-btn-demo {
+    flex: 1;
+    padding: 10px;
+    background: #4caf50;
+    color: var(--white);
+    border: none;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.undo-btn-demo:hover:not(:disabled) {
+    background: #45a049;
+}
+
+.undo-btn-demo:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.clear-btn-demo {
+    flex: 1;
+}
+
 /* Installation Section */
 .installation {
     max-width: 900px;
