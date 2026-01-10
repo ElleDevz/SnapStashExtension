@@ -433,6 +433,29 @@ body {
     text-decoration: underline;
 }
 
+/* Neon Ombre Heart */
+.neon-heart {
+    display: inline-block;
+    background: linear-gradient(90deg, #ff00ff, #ff0080, #ff7f00, #ffff00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 8px #ff00ff) drop-shadow(0 0 4px #ff0080);
+    animation: neon-pulse 2s ease-in-out infinite;
+    font-size: 1.2em;
+}
+
+@keyframes neon-pulse {
+    0%, 100% {
+        filter: drop-shadow(0 0 8px #ff00ff) drop-shadow(0 0 4px #ff0080);
+        opacity: 1;
+    }
+    50% {
+        filter: drop-shadow(0 0 12px #ff00ff) drop-shadow(0 0 8px #ff0080) drop-shadow(0 0 4px #ffff00);
+        opacity: 1;
+    }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .header {
